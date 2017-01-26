@@ -138,6 +138,7 @@ export default class TimeGrid extends Component {
       , width
       , startAccessor
       , endAccessor
+      , className
       , allDayAccessor } = this.props;
 
     width = width || this.state.gutterWidth;
@@ -171,7 +172,7 @@ export default class TimeGrid extends Component {
     let gutterRef = ref => this._gutters[1] = ref && findDOMNode(ref);
 
     return (
-      <div className='rbc-time-view'>
+      <div className={cn('rbc-time-view', className)}>
 
         {this.renderHeader(range, allDayEvents, width)}
 
