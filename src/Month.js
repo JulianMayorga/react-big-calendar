@@ -35,6 +35,7 @@ let propTypes = {
 
   scrollToTime: React.PropTypes.instanceOf(Date),
   eventPropGetter: React.PropTypes.func,
+  messages: React.PropTypes.array,
 
   culture: React.PropTypes.string,
   dayFormat: dateFormat,
