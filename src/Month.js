@@ -215,7 +215,7 @@ let MonthView = React.createClass({
         )}
       >
         <a href='#' onClick={e => this.handleHeadingClick(date, e)}>
-          {localizer.format(date, dateFormat, culture)}
+          {localizer.format(date, 'D', culture)}
         </a>
       </div>
     )
