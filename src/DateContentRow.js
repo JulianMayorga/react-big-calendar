@@ -8,8 +8,7 @@ import dates from './utils/dates';
 import { accessor, elementType } from './utils/propTypes';
 import { segStyle, eventSegments, endOfRange, eventLevels } from './utils/eventLevels';
 import BackgroundCells from './BackgroundCells';
-import EventRow from './EventRow';
-import EventEndingRow from './EventEndingRow';
+import EventCells from './EventCells';
 
 let isSegmentInSlot = (seg, slot) => seg.left <= slot && seg.right >= slot;
 
@@ -147,8 +146,7 @@ class DateContentRow extends React.Component {
       eventComponent,
       eventWrapperComponent,
       onSelectStart,
-      onSelectEnd,
-      ...props
+      onSelectEnd
     } = this.props;
 
     if (renderForMeasure)
@@ -161,7 +159,7 @@ class DateContentRow extends React.Component {
       endAccessor
     }))
 
-    let { levels, extra } = eventLevels(segments, Math.max(maxRows - 1, 1));
+    let { levels } = eventLevels(segments, Math.max(maxRows - 1, 1));
     while (levels.length < minRows ) levels.push([])
 
     return (
@@ -175,38 +173,28 @@ class DateContentRow extends React.Component {
           onSelectEnd={onSelectEnd}
           onSelectSlot={this.handleSelectSlot}
           cellWrapperComponent={dateCellWrapper}
-        />
+          eventComponent={eventComponent}
+          eventWrapperComponent={eventWrapperComponent}
+          />
+        <EventCells
+          rtl={rtl}
+          range={range}
+          selectable={selectable}
+          container={this.getContainer}
+          onSelectStart={onSelectStart}
+          onSelectEnd={onSelectEnd}
+          onSelectSlot={this.handleSelectSlot}
+          cellWrapperComponent={dateCellWrapper}
+          eventComponent={eventComponent}
+          eventWrapperComponent={eventWrapperComponent}
+          segments={segments}
+          />
 
         <div className='rbc-row-content'>
           {renderHeader && (
             <div className='rbc-row' ref={this.createHeadingRef}>
               {range.map(this.renderHeadingCell)}
             </div>
-          )}
-          {levels.map((segs, idx) =>
-            <EventRow
-              {...props}
-              key={idx}
-              start={first}
-              end={last}
-              segments={segs}
-              slots={range.length}
-              eventComponent={eventComponent}
-              eventWrapperComponent={eventWrapperComponent}
-              startAccessor={startAccessor}
-              endAccessor={endAccessor}
-            />
-          )}
-          {!!extra.length && (
-            <EventEndingRow
-              {...props}
-              start={first}
-              end={last}
-              segments={extra}
-              onShowMore={this.handleShowMore}
-              eventComponent={eventComponent}
-              eventWrapperComponent={eventWrapperComponent}
-            />
           )}
         </div>
       </div>

@@ -200,7 +200,7 @@ let MonthView = React.createClass({
   },
 
   readerDateHeading({ date, className, ...props }) {
-    let { date: currentDate, dateFormat, culture  } = this.props;
+    let { date: currentDate, culture  } = this.props;
 
     let isOffRange = dates.month(date) !== dates.month(currentDate);
     let isCurrent = dates.eq(date, currentDate, 'day');
