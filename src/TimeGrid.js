@@ -6,12 +6,10 @@ import dates from './utils/dates';
 import localizer from './localizer'
 import DayColumn from './DayColumn';
 import TimeColumn from './TimeColumn';
-import DateContentRow from './DateContentRow';
 import Header from './Header';
 
 import getWidth from 'dom-helpers/query/width';
 import scrollbarSize from 'dom-helpers/util/scrollbarSize';
-import message from './utils/messages';
 
 import { accessor, dateFormat } from './utils/propTypes';
 
@@ -222,8 +220,8 @@ export default class TimeGrid extends Component {
     })
   }
 
-  renderHeader(range, events, width) {
-    let { messages, rtl, selectable, components } = this.props;
+  renderHeader(range) {
+    let { rtl } = this.props;
     let { isOverflowing } = this.state || {};
 
     let style = {};
@@ -240,39 +238,7 @@ export default class TimeGrid extends Component {
         style={style}
       >
         <div className='rbc-row'>
-          <div
-            className='rbc-label rbc-header-gutter'
-            style={{ width }}
-          />
           { this.renderHeaderCells(range) }
-        </div>
-        <div className='rbc-row'>
-          <div
-            ref={ref => this._gutters[0] = ref}
-            className='rbc-label rbc-header-gutter'
-            style={{ width }}
-          >
-            { message(messages).allDay }
-          </div>
-          <DateContentRow
-            minRows={2}
-            range={range}
-            rtl={this.props.rtl}
-            events={events}
-            className='rbc-allday-cell'
-            selectable={selectable}
-            onSelectSlot={this.handleSelectAllDaySlot}
-            dateCellWrapper={components.dateCellWrapper}
-            eventComponent={this.props.components.event}
-            eventWrapperComponent={this.props.components.eventWrapper}
-            titleAccessor={this.props.titleAccessor}
-            startAccessor={this.props.startAccessor}
-            endAccessor={this.props.endAccessor}
-            allDayAccessor={this.props.allDayAccessor}
-            eventPropGetter={this.props.eventPropGetter}
-            selected={this.props.selected}
-            onSelect={this.handleSelectEvent}
-          />
         </div>
       </div>
     )
