@@ -167,7 +167,7 @@ export default class TimeGrid extends Component {
 
     allDayEvents.sort((a, b) => sortEvents(a, b, this.props))
 
-    let gutterRef = ref => this._gutters[1] = ref && findDOMNode(ref);
+    let gutterRef = ref => ref && findDOMNode(ref) ? this._gutters.push(findDOMNode(ref)) : null;
 
     return (
       <div className={cn('rbc-time-view', className)}>
@@ -220,7 +220,7 @@ export default class TimeGrid extends Component {
     })
   }
 
-  renderHeader(range) {
+  renderHeader(range, events, width) {
     let { rtl } = this.props;
     let { isOverflowing } = this.state || {};
 
@@ -238,6 +238,10 @@ export default class TimeGrid extends Component {
         style={style}
       >
         <div className='rbc-row'>
+          <div
+            className='rbc-label rbc-header-gutter'
+            style={{ width }}
+          />
           { this.renderHeaderCells(range) }
         </div>
       </div>
