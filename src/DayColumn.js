@@ -172,7 +172,7 @@ let DaySlot = React.createClass({
               top: `${top}%`,
               height: `${height}%`,
               [isRtl ? 'right' : 'left']: `${Math.max(0, xOffset)}%`,
-              width: `${width}%`
+              maxWidth: `${width}%`
             }}
             title={label + ': ' + title }
             onClick={(e) => this._select(event, e)}
